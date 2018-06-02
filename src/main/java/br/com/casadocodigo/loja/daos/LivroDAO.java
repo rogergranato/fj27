@@ -28,5 +28,4 @@ public class LivroDAO {
 		return livro;
 		
 	}
-
 }
