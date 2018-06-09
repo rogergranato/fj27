@@ -1,5 +1,7 @@
 package br.com.casadocodigo.loja.daos;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -27,5 +29,11 @@ public class LivroDAO {
 		
 		return livro;
 		
+	}
+
+	public List<Livro> lista() {
+		// mysql> select * from Livro l inner join Livro_precos lp on l.id=lp.id;
+		return em.createQuery("select distinct(l) from Livro l join fetch l.precos", Livro.class).getResultList();
+		//return em.createQuery("select l from Livro l", Livro.class).getResultList();
 	}
 }
