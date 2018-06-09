@@ -1,7 +1,17 @@
 package br.com.casadocodigo.loja.conf;
 
+import java.nio.charset.StandardCharsets;
+
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.format.datetime.DateFormatter;
+import org.springframework.format.datetime.DateFormatterRegistrar;
+import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
+import org.springframework.format.support.DefaultFormattingConversionService;
+import org.springframework.format.support.FormattingConversionService;
+import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -23,6 +33,37 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		resolver.setSuffix(".jsp");
 		resolver.setPrefix("/WEB-INF/views/");
 		return resolver;
+	}
+	
+	@Bean
+	public MessageSource messageSource(){
+		ReloadableResourceBundleMessageSource  bundle = new ReloadableResourceBundleMessageSource();
+		bundle.setBasename("/WEB-INF/messages");
+		bundle.setDefaultEncoding(StandardCharsets.UTF_8.name());
+		bundle.setCacheSeconds(3);
+		return bundle;
+	}
+	
+	// o nome desse metodo nao eh customizavel
+	@Bean
+	public FormattingConversionService mvcConversionService(){
+		// ensina o spring a usar o padrao do browser
+		DateFormatter df = new DateFormatter("yyyy-MM-dd");
+		
+		// nao vou criar outro FormattingConversionService. senao perco o que o spring ja define paara mim (usa o default)
+		DefaultFormattingConversionService dfcs = new DefaultFormattingConversionService();
+		
+		DateFormatterRegistrar registrar = new DateFormatterRegistrar();
+		registrar.setFormatter(df);
+		registrar.registerFormatters(dfcs);
+		
+		return dfcs;
+	}
+	
+	@Bean
+	public MultipartResolver multipartResolver(){
+		//TODO return the default
+		return null;
 	}
 	
 	//habilita o WEB-INF resources

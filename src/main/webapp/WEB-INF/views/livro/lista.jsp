@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,15 +17,21 @@
 	  <font color="red">${successo}</font>
   </p>
   <table border=1>
-    <th width="35%">T&iacute;tulo</th>
-    <th width="35%">Autor</th>
-    <th width="30%">Pre&ccedil;os</th>
+    <th width="25%">T&iacute;tulo</th>
+    <th width="25%">Autor</th>
+    <th width="40%">Descri&ccedil;&atilde;o: </th>
+    <!-- th width="5%">Lan&ccedil;amento: </th> -->
+    <th width="5%">Pre&ccedil;os</th>
     
         <c:forEach items="${livros}" var="livro">
       
         <tr>
 		    <td>${livro.titulo}</td>
 		    <td>${livro.autor}</td>
+		    <td>${livro.descricao}</td>
+		    <!-- 
+		    <td><fmt:formatDateormatDate value="${livro.dataLancamento}" pattern="dd/MM/yyyy"/></td>
+		    -->
 		    <td>
 		       <c:forEach items="${livro.precos}" var="preco">
 		          ${preco.tipo}: ${preco.valor}<br/>

@@ -1,5 +1,6 @@
 package br.com.casadocodigo.loja.models;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -7,7 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 // diz para o hibernate
 @Entity
@@ -18,13 +26,28 @@ public class Livro {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;//usar uuid para nao ser sequencial
 	
+	@NotBlank(message="livro.titulo")
 	private String titulo;
+	
+	@NotBlank
 	private String autor;
-	private String numPaginas;
+	
+	@Lob
+	@NotBlank
+	private String descricao;
+	
+	@Min(1)
+	@Max(1000)
+	private int numPaginas;
 	
 	//@OneToMany // cria 2 entidades separadas 2ids separados
 	@ElementCollection //mesmo id
 	private List<Preco> precos;
+	
+	@DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+	private Calendar dataLancamento;
+	
+	private String arquivo;
 	
 	public List<Preco> getPrecos() {
 		return precos;
@@ -32,10 +55,10 @@ public class Livro {
 	public void setPrecos(List<Preco> precos) {
 		this.precos = precos;
 	}
-	public String getNumPaginas() {
+	public int getNumPaginas() {
 		return numPaginas;
 	}
-	public void setNumPaginas(String numPaginas) {
+	public void setNumPaginas(int numPaginas) {
 		this.numPaginas = numPaginas;
 	}
 	public String getAutor() {
@@ -62,5 +85,23 @@ public class Livro {
 	public void setId(Long id) {
 		this.id = id;
 		//UUID.randomUUID();
+	}
+	public String getDescricao() {
+		return descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	public Calendar getDataLancamento() {
+		return dataLancamento;
+	}
+	public void setDataLancamento(Calendar dataLancamento) {
+		this.dataLancamento = dataLancamento;
+	}
+	public String getArquivo() {
+		return arquivo;
+	}
+	public void setArquivo(String arquivo) {
+		this.arquivo = arquivo;
 	}
 }

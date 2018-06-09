@@ -10,7 +10,7 @@ import javax.persistence.Enumerated;
 @Embeddable
 public class Preco {
 
-	@Column(precision = 2)
+	@Column(scale = 2)
 	private BigDecimal valor;
 	@Column
 	@Enumerated(EnumType.STRING)

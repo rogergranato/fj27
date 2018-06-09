@@ -1,17 +1,27 @@
 package br.com.casadocodigo.loja.controllers;
 
 
+import java.util.Objects;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.casadocodigo.loja.daos.LivroDAO;
+import br.com.casadocodigo.loja.infra.GerenciadorDeArquivo;
 import br.com.casadocodigo.loja.models.Livro;
 import br.com.casadocodigo.loja.models.TipoLivro;
+import br.com.casadocodigo.loja.validation.LivroValidator;
 
 @Controller
 @RequestMapping("/livros")
@@ -19,6 +29,8 @@ public class LivroController {
 
 	@Autowired
 	private LivroDAO livroDAO;
+	@Autowired
+	private GerenciadorDeArquivo gerenciador;
 	
 	/* com annotation acima ou sem, mas usando esse contrutor: injeta o livro DAO
 	@Autowired
@@ -27,6 +39,13 @@ public class LivroController {
 		this.livroDAO = livroDAO;
 	}*/
 
+	// desabilitado. estamos validando usando HibernateValidation
+//	@InitBinder
+//	public void webdatabinder(WebDataBinder wdb) {
+//		wdb.addValidators(new LivroValidator());
+//		
+//	}
+	
 //	@RequestMapping("livro/form")
 //	public String formulario()
 //	{
@@ -34,7 +53,7 @@ public class LivroController {
 //	}
 
 	@RequestMapping("form")
-	public ModelAndView formulario()
+	public ModelAndView formulario(Livro livro)
 	{
 		ModelAndView mav = new ModelAndView("livro/form");
 		mav.addObject("tiposLivro", TipoLivro.values());
@@ -51,16 +70,22 @@ public class LivroController {
 	
 	@Transactional
 	//public String salvarLivro(String titulo, String autor, Integer numPaginas)
+	// a ordem de parametros desse metodo nao pode mudar
 	@RequestMapping(method = RequestMethod.POST)
-	public String salvarLivro(Livro livro, RedirectAttributes attr)
+	public ModelAndView salvarLivro(@Valid Livro livro, MultipartFile sumario, BindingResult result, RedirectAttributes attr)
 	{
-		System.out.println(livro);
+		if (result.hasErrors())
+		{
+			return formulario(livro);
+		}
+		
+		gerenciador.save("/tmp", sumario);
 		livroDAO.save(livro);
 
 		attr.addFlashAttribute("successo", "Livro \"" +  livro.getTitulo() + " \"adicionado com sucesso");
 		//return "livro/ok";
 		//return listaLivros(); forward (redirect so do lado do servidor). Qdo apertamos F5 a pagina reenvia o form
-		// return new ModelAndView("redirect:livros"); similar aa linha de baixo
-		return "redirect:livros";
+		return new ModelAndView("redirect:livros"); //similar aa linha de baixo
+		//return "redirect:livros";
 	}
 }
