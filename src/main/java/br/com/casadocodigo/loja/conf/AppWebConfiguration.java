@@ -1,7 +1,12 @@
 package br.com.casadocodigo.loja.conf;
 
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.TimeUnit;
 
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
+import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,6 +24,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.google.common.cache.CacheBuilder;
+
 import br.com.casadocodigo.loja.controllers.HomeController;
 import br.com.casadocodigo.loja.daos.LivroDAO;
 import br.com.casadocodigo.loja.infra.GerenciadorDeArquivo;
@@ -26,6 +33,8 @@ import br.com.casadocodigo.loja.models.ShoppingCart;
 
 // Habilita o component MVC do Spring
 @EnableWebMvc
+// habilita o caching
+@EnableCaching
 // Fala pro Spring que pacotes ele deve ler
 @ComponentScan(basePackageClasses={HomeController.class, 
                                    LivroDAO.class,
@@ -88,5 +97,21 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	public RestTemplate criaRestTemplate()
 	{
 		return new RestTemplate();
+	}
+	
+	// habilita nosso cache manager
+	@Bean
+	public CacheManager createNossoCacheManager()
+	{
+		// usa o default para usar nossa propria memoria
+		//return new ConcurrentMapCacheManager();
+		
+		// Usando o Guava (GOOGLE)
+		CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder()
+				                                           .maximumSize(100L)
+				                                           .expireAfterAccess(10L, TimeUnit.MINUTES);
+		GuavaCacheManager mgr = new GuavaCacheManager();
+		mgr.setCacheBuilder(builder);
+		return mgr;
 	}
 }

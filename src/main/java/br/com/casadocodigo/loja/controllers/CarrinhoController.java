@@ -69,6 +69,7 @@ public class CarrinhoController {
 	      {
 	    	  System.out.println("pagamento efetuado com sucesso");
 	    	  attr.addFlashAttribute("sucesso", "pagamento efetuado com sucesso");
+
 	    	  carrinho.clean();
 	    	  return new ModelAndView("redirect:/livros");
 	      }

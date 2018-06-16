@@ -6,6 +6,8 @@ import java.util.Objects;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -59,6 +61,7 @@ public class LivroController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
+	@Cacheable(value = "livros")
 	public ModelAndView listaLivros()
 	{
 		ModelAndView mav = new ModelAndView("livro/lista");
@@ -70,6 +73,7 @@ public class LivroController {
 	//public String salvarLivro(String titulo, String autor, Integer numPaginas)
 	// a ordem de parametros desse metodo nao pode mudar
 	@RequestMapping(method = RequestMethod.POST)
+	@CacheEvict(value = "livros", allEntries = true)
 	public ModelAndView salvarLivro(@Valid Livro livro, MultipartFile sumario, BindingResult result, RedirectAttributes attr)
 	{
 		if (result.hasErrors())
@@ -78,11 +82,10 @@ public class LivroController {
 		}
 		
 		String path = gerenciador.save("uploads", sumario);
-		System.out.println("ROGERIO: " + path);
 		livro.setCaminhoDoSumario(path);
 		livroDAO.save(livro);
 
-		attr.addFlashAttribute("successo", "Livro \"" +  livro.getTitulo() + " \"adicionado com sucesso");
+		attr.addFlashAttribute("sucesso", "Livro \"" +  livro.getTitulo() + " \"adicionado com sucesso");
 		//return "livro/ok";
 		//return listaLivros(); forward (redirect so do lado do servidor). Qdo apertamos F5 a pagina reenvia o form
 		return new ModelAndView("redirect:livros"); //similar aa linha de baixo

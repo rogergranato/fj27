@@ -14,7 +14,7 @@
   <center>
   
   <p>
-	  <font color="red">${successo}</font>
+	  <font color="red">${sucesso}</font>
   </p>
   <table border=1>
     <th width="25%">T&iacute;tulo</th>
