@@ -72,7 +72,6 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		// TODO Auto-generated method stub
-		super.configureDefaultServletHandling(configurer);
 		configurer.enable();
 	}
 }

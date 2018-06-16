@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +20,6 @@ import br.com.casadocodigo.loja.daos.LivroDAO;
 import br.com.casadocodigo.loja.infra.GerenciadorDeArquivo;
 import br.com.casadocodigo.loja.models.Livro;
 import br.com.casadocodigo.loja.models.TipoLivro;
-import br.com.casadocodigo.loja.validation.LivroValidator;
 
 @Controller
 @RequestMapping("/livros")
@@ -79,7 +77,8 @@ public class LivroController {
 			return formulario(livro);
 		}
 		
-		gerenciador.save("uploads", sumario);
+		String path = gerenciador.save("uploads", sumario);
+		livro.setCaminhoDoSumario(path);
 		livroDAO.save(livro);
 
 		attr.addFlashAttribute("successo", "Livro \"" +  livro.getTitulo() + " \"adicionado com sucesso");
@@ -87,5 +86,20 @@ public class LivroController {
 		//return listaLivros(); forward (redirect so do lado do servidor). Qdo apertamos F5 a pagina reenvia o form
 		return new ModelAndView("redirect:livros"); //similar aa linha de baixo
 		//return "redirect:livros";
+	}
+	
+	@RequestMapping("detalhe/{id}")
+	public ModelAndView detalheLivro(@PathVariable("id") Long livroId)
+	{
+		Livro livro = livroDAO.findById(livroId);
+		
+		if (Objects.isNull(livro))
+		{
+			return new ModelAndView("404");
+		}
+		ModelAndView mav = new ModelAndView("livro/detalhe");
+		mav.addObject("livro", livro);
+		
+		return mav;
 	}
 }

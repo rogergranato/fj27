@@ -9,13 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 // diz para o hibernate
 @Entity
@@ -47,7 +45,8 @@ public class Livro {
 	@DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
 	private Calendar dataLancamento;
 	
-	private String arquivo;
+	@NotBlank
+	private String caminhoDoSumario;
 	
 	public List<Preco> getPrecos() {
 		return precos;
@@ -98,10 +97,10 @@ public class Livro {
 	public void setDataLancamento(Calendar dataLancamento) {
 		this.dataLancamento = dataLancamento;
 	}
-	public String getArquivo() {
-		return arquivo;
+	public String getCaminhoDoSumario() {
+		return caminhoDoSumario;
 	}
-	public void setArquivo(String arquivo) {
-		this.arquivo = arquivo;
+	public void setCaminhoDoSumario(String caminhoDoSumario) {
+		this.caminhoDoSumario = caminhoDoSumario;
 	}
 }

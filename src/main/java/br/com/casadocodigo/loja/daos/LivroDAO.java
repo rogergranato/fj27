@@ -36,4 +36,12 @@ public class LivroDAO {
 		return em.createQuery("select distinct(l) from Livro l join fetch l.precos", Livro.class).getResultList();
 		//return em.createQuery("select l from Livro l", Livro.class).getResultList();
 	}
+
+	public Livro findById(Long livroId) {
+		// TODO Auto-generated method stub
+		return em.createQuery("select distinct(l) from Livro l join fetch l.precos where l.id = :id", Livro.class)
+				.setParameter("id", livroId)
+				.getSingleResult();
+		
+	}
 }

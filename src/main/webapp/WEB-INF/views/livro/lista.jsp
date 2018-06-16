@@ -26,7 +26,8 @@
         <c:forEach items="${livros}" var="livro">
       
         <tr>
-		    <td>${livro.titulo}</td>
+           <c:url value="/livros/detalhe/${livro.id}" var="pathDoLivro"></c:url>
+		    <td><a href="${pathDoLivro}">${livro.titulo}</a></td>
 		    <td>${livro.autor}</td>
 		    <td>${livro.descricao}</td>
 		    <td>
