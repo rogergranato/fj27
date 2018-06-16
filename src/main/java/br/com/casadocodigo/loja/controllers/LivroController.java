@@ -78,6 +78,7 @@ public class LivroController {
 		}
 		
 		String path = gerenciador.save("uploads", sumario);
+		System.out.println("ROGERIO: " + path);
 		livro.setCaminhoDoSumario(path);
 		livroDAO.save(livro);
 

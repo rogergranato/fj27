@@ -46,7 +46,8 @@ public class Livro {
 	@DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
 	private Calendar dataLancamento;
 	
-	@NotBlank
+	
+	//TODO colocar validador
 	private String caminhoDoSumario;
 	
 	public List<Preco> getPrecos() {
