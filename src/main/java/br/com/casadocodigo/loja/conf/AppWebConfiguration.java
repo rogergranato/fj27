@@ -21,11 +21,15 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import br.com.casadocodigo.loja.controllers.HomeController;
 import br.com.casadocodigo.loja.daos.LivroDAO;
 import br.com.casadocodigo.loja.infra.GerenciadorDeArquivo;
+import br.com.casadocodigo.loja.models.ShoppingCart;
 
 // Habilita o component MVC do Spring
 @EnableWebMvc
 // Fala pro Spring que pacotes ele deve ler
-@ComponentScan(basePackageClasses={HomeController.class, LivroDAO.class, GerenciadorDeArquivo.class})
+@ComponentScan(basePackageClasses={HomeController.class, 
+                                   LivroDAO.class,
+                                   GerenciadorDeArquivo.class,
+                                   ShoppingCart.class})
 //@ComponentScan(basePackages={"br.com.casadocodigo.loja.controllers"})
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	
@@ -34,6 +38,10 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setSuffix(".jsp");
 		resolver.setPrefix("/WEB-INF/views/");
+		// todas as classes contorladas pelo spring ficam disponiveis no jsp
+		//resolver.setExposeContextBeansAsAttributes(true);
+		//expoe ShoppingCart no JSP
+		resolver.setExposedContextBeanNames("shoppingCart");
 		return resolver;
 	}
 	

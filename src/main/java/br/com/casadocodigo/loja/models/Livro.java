@@ -1,5 +1,6 @@
 package br.com.casadocodigo.loja.models;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 
@@ -102,5 +103,22 @@ public class Livro {
 	}
 	public void setCaminhoDoSumario(String caminhoDoSumario) {
 		this.caminhoDoSumario = caminhoDoSumario;
+	}
+	public BigDecimal priceFor(TipoLivro tipoLivro) {
+		// TODO Auto-generated method stub
+//		for (Preco preco: precos)
+//		{
+//			if (preco.getTipo().equals(tipoLivro))
+//			{
+//				return preco.getValor();
+//			}
+//		}
+		
+		//precos.forEach(preco -> {if (preco.getTipo().equals(tipoLivro)){} ...});
+		return precos.stream()
+				     .filter(preco -> preco.getTipo().equals(tipoLivro))
+				     .findFirst()
+				     .get()
+				     .getValor();
 	}
 }

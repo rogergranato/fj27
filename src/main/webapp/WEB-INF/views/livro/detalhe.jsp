@@ -101,14 +101,14 @@
 		
 		<section class="buy-options clearfix">
 			<form action="${shoppingCartUrl}" method="post" class="container">
-				<input type="hidden" value="${livro.id}" name="productId"/>
+				<input type="hidden" value="${livro.id}" name="livroId"/>
 				<ul id="variants" class="clearfix">
 					<c:forEach items="${livro.precos}" var="price">
 						<li class="buy-option">
-							<input type="radio" name="bookType" class="variant-radio" id="${livro.id}-${price.tipo}"
+							<input type="radio" name="tipoLivro" class="variant-radio" id="${livro.id}-${price.tipo}"
 								value="${price.tipo}" ${price.tipo.name() == 'COMBO' ? 'checked' : ''}>
 							 
-							<label class="variant-label" for="${product.id}-${price.tipo}">
+							<label class="variant-label" for="${livro.id}-${price.tipo}">
 								${price.tipo}
 							</label>
 							<p class="variant-price">${price.valor}</p>
