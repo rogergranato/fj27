@@ -79,7 +79,7 @@ public class LivroController {
 			return formulario(livro);
 		}
 		
-		gerenciador.save("/tmp", sumario);
+		gerenciador.save("uploads", sumario);
 		livroDAO.save(livro);
 
 		attr.addFlashAttribute("successo", "Livro \"" +  livro.getTitulo() + " \"adicionado com sucesso");

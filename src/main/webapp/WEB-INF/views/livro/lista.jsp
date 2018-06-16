@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -29,9 +29,6 @@
 		    <td>${livro.titulo}</td>
 		    <td>${livro.autor}</td>
 		    <td>${livro.descricao}</td>
-		    <!-- 
-		    <td><fmt:formatDateormatDate value="${livro.dataLancamento}" pattern="dd/MM/yyyy"/></td>
-		    -->
 		    <td>
 		       <c:forEach items="${livro.precos}" var="preco">
 		          ${preco.tipo}: ${preco.valor}<br/>
