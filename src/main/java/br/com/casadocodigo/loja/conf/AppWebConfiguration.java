@@ -36,6 +36,7 @@ import br.com.casadocodigo.loja.daos.LivroDAO;
 import br.com.casadocodigo.loja.infra.GerenciadorDeArquivo;
 import br.com.casadocodigo.loja.models.ShoppingCart;
 import br.com.casadocodigo.loja.resolvers.JSONViewResolver;
+import br.com.casadocodigo.loja.services.UsuarioService;
 
 // Habilita o component MVC do Spring
 @EnableWebMvc
@@ -45,7 +46,8 @@ import br.com.casadocodigo.loja.resolvers.JSONViewResolver;
 @ComponentScan(basePackageClasses={HomeController.class, 
                                    LivroDAO.class,
                                    GerenciadorDeArquivo.class,
-                                   ShoppingCart.class})
+                                   ShoppingCart.class,
+                                   UsuarioService.class})
 //@ComponentScan(basePackages={"br.com.casadocodigo.loja.controllers"})
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	
@@ -134,4 +136,5 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		mgr.setCacheBuilder(builder);
 		return mgr;
 	}
+	
 }

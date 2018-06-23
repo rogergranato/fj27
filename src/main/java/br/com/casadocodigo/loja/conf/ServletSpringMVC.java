@@ -4,6 +4,7 @@ import javax.servlet.ServletRegistration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import br.com.casadocodigo.loja.filters.SpringSecurityFilter;
 import br.com.casadocodigo.loja.infra.GerenciadorDeArquivo;
 
 public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -11,15 +12,16 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Class[]{SpringSecurityConf.class,
+	                       SpringSecurityFilter.class,
+	                       AppWebConfiguration.class,
+						   JPAConfiguration.class};
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		// TODO Auto-generated method stub
-		return new Class[]{AppWebConfiguration.class,
-						   JPAConfiguration.class,
-						   GerenciadorDeArquivo.class};
+		return new Class[]{GerenciadorDeArquivo.class};
 	}
 
 	@Override
