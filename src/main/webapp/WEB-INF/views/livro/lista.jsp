@@ -23,8 +23,10 @@
 	  <font color="red">${sucesso}</font>
   </p>
   <table border=1>
-    <th width="25%">T&iacute;tulo</th>
-    <th width="25%">Autor</th>
+    <th width="25%">
+      <fmt:message key="livro.label"/>
+    </th>
+    <th width="25%"><fmt:message key="autor.label"/></th>
     <th width="40%">Descri&ccedil;&atilde;o: </th>
     <!-- th width="5%">Lan&ccedil;amento: </th> -->
     <th width="5%">Pre&ccedil;os</th>
