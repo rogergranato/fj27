@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import br.com.casadocodigo.loja.daos.UsuarioDAO;
 import br.com.casadocodigo.loja.services.UsuarioService;
@@ -31,7 +32,15 @@ public class SpringSecurityConf extends WebSecurityConfigurerAdapter{
 		  //.antMatchers("resources/**").permitAll()
 		  .anyRequest().authenticated()
 		  .and()
-		  .formLogin();
+		  .formLogin()
+		  .loginPage("/login")
+		  .defaultSuccessUrl("/livros").permitAll()
+		  .and()
+		  .logout()
+		  .logoutSuccessUrl("/login").permitAll()
+		  .logoutRequestMatcher( new AntPathRequestMatcher("/logout"))
+		  .and()
+		  .exceptionHandling().accessDeniedPage("/WEB-INF/views/errors/403.jsp;");
 	}
 	
 	@Override
