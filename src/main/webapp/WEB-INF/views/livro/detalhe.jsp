@@ -100,7 +100,7 @@
 		</header>
 		
 		<section class="buy-options clearfix">
-			<form action="${shoppingCartUrl}" method="post" class="container">
+			<form:form servletRelativeAction="/shopping"  method="post" class="container">
 				<input type="hidden" value="${livro.id}" name="livroId"/>
 				<ul id="variants" class="clearfix">
 					<c:forEach items="${livro.precos}" var="price">
@@ -117,7 +117,7 @@
 				</ul>
 
 				<input type="submit" class="submit-image icon-basket-alt" alt="Compre agora" title="Compre agora '${product.titulo}'!" value="comprar"/>
-			</form>
+			</form:form>
 		</section>
 
 		<div class="container">

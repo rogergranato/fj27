@@ -6,12 +6,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.com.casadocodigo.loja.daos.UsuarioDAO;
 import br.com.casadocodigo.loja.services.UsuarioService;
 
-@EnableWebSecurity
+//@EnableWebSecurity
+@EnableWebMvcSecurity
 public class SpringSecurityConf extends WebSecurityConfigurerAdapter{
 
 	@Autowired private UsuarioService usuarioService;

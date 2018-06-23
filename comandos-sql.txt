@@ -2,8 +2,8 @@ insert into Perfil values('ROLE_ADMIN');
 insert into Perfil values('ROLE_COMPRADOR');
 insert into Usuario(email,usuario,senha) values('comprador@gmail.com','Comprador','$2a$10$3Qrx0rv8qSmZ8s3RlD5qE.upleP7.Qzbg5EoIAm62evEkY4c023TK');
 insert into Usuario(email,usuario,senha) values('admin@casadocodigo.com.br','Administrador','$2a$10$3Qrx0rv8qSmZ8s3RlD5qE.upleP7.Qzbg5EoIAm62evEkY4c023TK');
-insert into Usuario_Perfil(Usuario_email,roles_nome) values('comprador@gmail.com','ROLE_COMPRADOR');
-insert into Usuario_Perfil(Usuario_email,roles_nome) values('admin@casadocodigo.com.br','ROLE_ADMIN');
+insert into Usuario_Perfil(Usuario_email,perfil_nome) values('comprador@gmail.com','ROLE_COMPRADOR');
+insert into Usuario_Perfil(Usuario_email,perfil_nome) values('admin@casadocodigo.com.br','ROLE_ADMIN');
 
 
 SELECT * from Usuario;
