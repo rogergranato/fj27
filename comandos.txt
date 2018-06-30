@@ -1,0 +1,109 @@
+https://wetransfer.com
+https://appear.in/
+
+https://letsencrypt.org/getting-started/ -> gera certificado ssl gratuito
+
+
+
+
+http://book-payment.herokuapp.com/payment
+
+
+caelum3bf4
+
+http://dontpad.com/fj27live
+
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d mysql
+
+
+
+git init -> comando para iniciar um repositorio git
+
+git status -> comando que irá mostrar os arquivos que o git esta gerenciando e os que não estao.
+
+git config --global --user.email "seuemail@gmail.com" -> comando necessário para configurar sua conta do github ao (git)
+
+git config --global --user.name -> "seu nome"
+
+git add . -> O "." identifica sua pasta atual, isso significa que ele irá pegar todos os arquivos e adiconar que estão na sua pasta( temos um pequeno problema aqui)
+
+git commit -m "minha mensagem de commit" -> esse comando irá começa a versionar o seu código e o parametro -m é para colarcamos uma mensagem que identifica as modificações que fizemos naquela versão.
+
+
+git remote add origin "url do repositorio git" -> esse comando irá fazer o link entre sua pasta local e o repositório que foi criado no github.com
+
+git push origin master -> comando que efetivamente pega as alterações na sua pasta local e envia para o github.
+
+
+arquivo de config do log4j
+
+### inicio ##
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Appenders -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss} [%t] %c{1} - %m%n" />
+		</layout>
+	</appender>
+	
+	<logger name="org.springframework.samples">
+		<level value="debug" />
+	</logger>
+	
+	<logger name="org.springframework.core">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.beans">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.context">
+		<level value="info" />
+	</logger>
+
+	<logger name="org.springframework.http">
+		<level value="debug" />
+	</logger>
+
+	<logger name="org.springframework.web">
+		<level value="debug" />
+	</logger>
+
+	<root>
+		<priority value="warn" />
+		<appender-ref ref="console" />
+	</root>
+	
+</log4j:configuration>
+
+### fim ###
+
+### SQL ###
+
+insert into Perfil values('ROLE_ADMIN');
+insert into Perfil values('ROLE_COMPRADOR');
+insert into User(email,nome,senha) values('comprador@gmail.com','Comprador','$2a$10$3Qrx0rv8qSmZ8s3RlD5qE.upleP7.Qzbg5EoIAm62evEkY4c023TK');
+insert into User(email,nome,senha) values('admin@casadocodigo.com.br','Administrador','$2a$10$3Qrx0rv8qSmZ8s3RlD5qE.upleP7.Qzbg5EoIAm62evEkY4c023TK');
+insert into User_Perfil(User_email,roles_nome) values('comprador@gmail.com','ROLE_COMPRADOR');
+insert into User_Perfil(User_email,roles_nome) values('admin@casadocodigo.com.br','ROLE_ADMIN');
+
+
+SELECT * from User;
+SELECT * from User_Perfil;
+
+
+
+
+
+####### DEEEMO #####
+
+
+docker run -d --name mongo -p 27017:27017 mongo
+
+

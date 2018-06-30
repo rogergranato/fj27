@@ -6,6 +6,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -18,10 +19,10 @@ public class JPAConfiguration {
 	
 	// configura o hibernate
 	@Bean(name = "meuEMMaroto")	
-	public LocalContainerEntityManagerFactoryBean entyMgrFactoryBean()
+	public LocalContainerEntityManagerFactoryBean entyMgrFactoryBean(DataSource dataSource)
 	{
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-		em.setDataSource(dataSource());
+		em.setDataSource(dataSource);
 		HibernateJpaVendorAdapter hibernate = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(hibernate);
 		//em.setJpaVendorAdapter(new EclipseLinkJpaVendorAdapter());
@@ -48,11 +49,12 @@ public class JPAConfiguration {
 	
 	// configura o data source
 	@Bean
+	@Profile("dev")
 	public DataSource dataSource(){
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUsername("root");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/casadocodigo?createIfNotExists=true");
-		dataSource.setPassword("");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/casadocodigo?createDatabaseIfNotExists=true");
+		dataSource.setPassword("caelum");
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		return dataSource;
 	}

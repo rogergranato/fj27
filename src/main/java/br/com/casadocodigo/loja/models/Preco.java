@@ -10,6 +10,11 @@ import javax.persistence.Enumerated;
 @Embeddable
 public class Preco {
 
+	public Preco(){}
+	public Preco(BigDecimal valor, TipoLivro tipo) {
+		this.valor = valor;
+		this.tipo = tipo;
+	}
 	@Column(scale = 2)
 	private BigDecimal valor;
 	@Column
